@@ -31,9 +31,8 @@
 
         <div id="container"></div>
         <div id="img"><img id="myImg" alt=""></div>        
-        <canvas id="myCanvas" width="200" height="200"></canvas>
 
-		<script>
+        <script>
             // const path = "https://firebasestorage.googleapis.com/v0/b/georeality-c05a1.appspot.com/o/geoprojects%2FZGVmYXVsdA%3D%3D%2F1%2FtourAnnotations%2Fmaster_Lines_0_0?alt=media&token=5bff319d-0aef-4411-9ef0-9dac17f92f78";
             // const path = "http://www.imagestock.us/images/2447_FountainPl_345pxl.jpg";
             const path = "texture.jpg";
@@ -52,11 +51,7 @@
 			var geometry = new THREE.BoxGeometry( 1, 1, 1 );
 			var material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
 			var cube = new THREE.Mesh( geometry, material );
-			var cube2 = new THREE.Mesh( geometry, material );
 			scene.add( cube );
-            scene.add( cube2 );
-            
-            cube2.position.x = 2;
 
 			camera.position.z = 5;
 			camera.position.y = 2;
@@ -66,9 +61,6 @@
 
 				cube.rotation.x += 0.01;
 				cube.rotation.y += 0.01;
-
-                cube2.rotation.x += 0.01;
-				cube2.rotation.y += 0.01;
 
 				renderer.render( scene, camera );
 			};
@@ -82,43 +74,16 @@
             myTex.onload = function() {
                 _img.src = this.src;
                 _img.width = 200;
-                setTimeout(replaceTexture, 1000);
             }
 
-
-            // PATH TO CHANGE
             myTex.src = path;
 
-            function replaceTexture(){
-
-                var c = document.getElementById("myCanvas");
-                var ctx = c.getContext("2d");
-
-                ctx.drawImage(_img, 0, 0);
-
-                ctx.fillStyle = "blue";
-                ctx.fillRect(0, 0, 50, 50);
-
-                var imgData = ctx.getImageData(0, 0, 100, 100);
-
-                var texture = new THREE.Texture(imgData);
-                texture.needsUpdate = true;
-
-                var objMaterial = new THREE.MeshBasicMaterial({ map: texture });
-
-                cube.material = objMaterial;
-
-            }
-
-            
-// loader.crossOrigin = 'anonymous';
-// loader.setCrossOrigin('');
             var loader = new THREE.TextureLoader();
 
             var onLoad = function (texture) {
                 var objMaterial = new THREE.MeshBasicMaterial({ map: texture });
 
-                cube2.material = objMaterial;
+                cube.material = objMaterial;
             }
 
             // Function called when download progresses
